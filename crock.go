@@ -24,19 +24,20 @@ func crock(t terminal.Terminal, c color.Color) {
 	previous := ""
 
 	for {
-		var now string = time.Now().Format("2006/01/02 15:04:05")
+		var now = time.Now()
+		var digital string = now.Format("2006/01/02 15:04:05")
 
-		if previous == now {
+		if previous == digital {
 			continue
 		}
 
 		tm.MoveCursor((t.Width - LEN_STRFTIME), 0)
 		tm.Flush()
 
-		fmt.Println(tm.Color(now, int(c)))
-		render.Render(t, c)
+		fmt.Println(tm.Color(digital, int(c)))
+		render.Render(t, c, now)
 
-		previous = now
+		previous = digital
 
 		time.Sleep(INTERVAL)
 	}

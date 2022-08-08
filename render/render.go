@@ -3,6 +3,7 @@ package render
 import (
 	"fmt"
 	"strings"
+	"time"
 
 	print "github.com/fatih/color"
 
@@ -14,8 +15,28 @@ const (
 	CIRCLE_WIDTH = 52
 )
 
-func Render(t terminal.Terminal, c color.Color) {
+func Render(t terminal.Terminal, c color.Color, now time.Time) {
 	crock := circle
+
+
+
+
+	lines := strings.Split(crock, "\n")
+
+	for _, line := range lines {
+		for i, _ := range line {
+			if line[i] != (" ") {
+				;
+			} else if h_0[i] != " " {
+				
+			} else if m_25[i] != " " {
+
+			}
+
+
+		}
+	}
+
 
 
 
@@ -47,7 +68,7 @@ func centering(crock string, t terminal.Terminal) string {
 
 	centered := []string{}
 	for _, line := range lines {
-		centered = append(centered, strings.Repeat(" ", numSpaces) + line + strings.Repeat(" ", numSpaces))
+		centered = append(centered, strings.Repeat(" ", numSpaces - 2) + line + strings.Repeat(" ", numSpaces))  // 2: fine-tuning for the senses
 	}
 
 	return strings.Join(centered, "\n")
