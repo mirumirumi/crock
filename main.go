@@ -29,6 +29,7 @@ func main() {
 
 	if t.Width < r.MIN_WIDTH || t.Height < r.MIN_HEIGHT {
 		needSize(t.Width, t.Height)
+		os.Exit(0)
 	}
 
 	go crock(t, c)
@@ -68,20 +69,40 @@ func parseArgs(args []string) (color.Color, error) {
 }
 
 func needSize(x int, y int) {
-	fmt.Println("\x1b[33mWoops!\x1b[0m crock needs a minimum size of", r.MIN_WIDTH, "(columns) x", r.MIN_HEIGHT, "(lines), please retry again.")
-	fmt.Println("\nyour terminal size is:")
-	fmt.Println(" x:", x)
-	fmt.Println(" y:", y)
-	fmt.Println("")
-	os.Exit(0)
+	msg := fmt.Sprintf(`
+%sWoops!%s crock needs a minimum size of %d(columns) x %d(lines), please retry again.
+
+your terminal size is:
+ x: %d
+ y: %d
+`, "\x1b[33m", "\x1b[0m", r.MIN_WIDTH, r.MIN_HEIGHT, x, y)
+
+	fmt.Println(msg)
 }
 
 func printHelp() {
-	fmt.Println("crock - which is rock clock 🪨")
+	msg := fmt.Sprintf(`
+crock - which is rock clock 🪨
+
+Usage: crock [options] [args]
+
+Options:
+  --help   , -h    Show this help message
+  --version, -v    Print the current crock version
+  --color  , -c    Specify the output color for crock, you must specify the color after '--color' or '-c'
+                     Valid colors:
+                       black
+                       white
+                       green
+                       yellow
+                       red
+`)
+
+	fmt.Println(msg)
 }
 
 func printVersion() {
-	// go build xxx/xxx/ -ldflags "-s -w -X main.version=x.x.x"
+	// go build -ldflags "-s -w -X main.version=x.x.x"
 	fmt.Println("crock: version ", getVersion())
 }
 
