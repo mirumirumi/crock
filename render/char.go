@@ -1,23 +1,78 @@
 package render
 
-// numbers: 18 columns
-// colon  :  7 columns
+import "strings"
 
-var sample = `
-     :!77!~.        :?!^                       JYYJJ7~.             .!5Y:                 .~7JYYJ7^        .~7JYYYJ7^.  
-   ~YGBGGGGP?:      YBB?  .::.                 J555PGGPJ^          ~5GGY^                ~PGBP55GBGY:     !PGBG555GBG5~ 
-  JGB5!::~JGBP~    !GG5.  !GGY                     .^JGGG^       ^YGB5~                 :GGG!.  .?GBY    !GGP!.   :!GGG~
- ?BGY.     ~GGG:  :PGG^   !BG5      :JYJ^       :!!!?5GG5.     .?GBP7.         .?YY~    .PGG?^::~YGGJ    7BG5:     ^PGG!
-:PGP:       7GGJ  !GGJ    !GG5      ~GGG!       JGGBBGG5:     .YBGJ:           :PGGJ     ^5GGGGGBGGJ.    .JGBGY??J5GGG5.
-~GGY        ^GG5  ~BGY^:..7GG5....   .:.        .::^75GGP~    YBG5!7????7~:     .:.    .75GGP5YY5GGPY~     ^7Y5PPP5GGG! 
-^GG5        ~GGY  .?PGGGGGGGGGPPG!                    ?GG5   ~GGGGPP555PGBGY:         .YBGY~.   .:7PGG7        .. ~GGP. 
- YGG7      .5GG~    .^~!!!JGGP!!7:                   :YGBY   ~BGY:..    .7GB5.        :GGG:        7GG5           JGGJ  
- :PBG?:  .~5BG?           !GGY       :^:       ..:~7YGBGJ.   .5BG?:   ..^?GBY   :^^.  .YBGY~.    :7PGG7          :PGG~  
-  :JGBG5YPGG5!            !BB5      !GBB7   .Y5PPGGGPY7^      :JPBGP55PPGGP?.  :GBBJ   .7PGBP5YY5GBG5~           7BB5   
-    :7Y555J~.             ^J?7      :7J?:   .?J?7!~^.           :~7?J??7!^.    .!J?^     .~7JY5YYJ!^             ~7J~   
-`
+const (
+	DIGIT = 8
+	NUMBER_WIDTH = 18
+	COLON_WIDTH = 7
+	LINES = 11 // all
+)
 
-var n_0 = `
+type char struct {
+	formatted string
+}
+
+func (c *char) generate() string {
+	var result string
+
+	for i := 0; i < LINES; i++ {
+		for j := 0; j < DIGIT; j++ {
+			result += c.slice(i, j)
+		}
+		
+		result += "\n"
+	}
+
+	return result
+}
+
+func (c *char) slice(i int, j int) string {
+	lines := []string{}
+	
+	switch c.formatted[j : j+1] {
+	case "0":
+		lines = strings.Split(n_0, "\n")
+	case "1":
+		lines = strings.Split(n_1, "\n")
+	case "2":
+		lines = strings.Split(n_2, "\n")
+	case "3":
+		lines = strings.Split(n_3, "\n")
+	case "4":
+		lines = strings.Split(n_4, "\n")
+	case "5":
+		lines = strings.Split(n_5, "\n")
+	case "6":
+		lines = strings.Split(n_6, "\n")
+	case "7":
+		lines = strings.Split(n_7, "\n")
+	case "8":
+		lines = strings.Split(n_8, "\n")
+	case "9":
+		lines = strings.Split(n_9, "\n")
+	case ":":
+		lines = strings.Split(colon, "\n")
+	}
+
+	return lines[i]
+}
+
+// const sample = `
+//      :!77!~.        :?!^                       JYYJJ7~.             .!5Y:                 .~7JYYJ7^        .~7JYYYJ7^.  
+//    ~YGBGGGGP?:      YBB?  .::.                 J555PGGPJ^          ~5GGY^                ~PGBP55GBGY:     !PGBG555GBG5~ 
+//   JGB5!::~JGBP~    !GG5.  !GGY                     .^JGGG^       ^YGB5~                 :GGG!.  .?GBY    !GGP!.   :!GGG~
+//  ?BGY.     ~GGG:  :PGG^   !BG5      :JYJ^       :!!!?5GG5.     .?GBP7.         .?YY~    .PGG?^::~YGGJ    7BG5:     ^PGG!
+// :PGP:       7GGJ  !GGJ    !GG5      ~GGG!       JGGBBGG5:     .YBGJ:           :PGGJ     ^5GGGGGBGGJ.    .JGBGY??J5GGG5.
+// ~GGY        ^GG5  ~BGY^:..7GG5....   .:.        .::^75GGP~    YBG5!7????7~:     .:.    .75GGP5YY5GGPY~     ^7Y5PPP5GGG! 
+// ^GG5        ~GGY  .?PGGGGGGGGGPPG!                    ?GG5   ~GGGGPP555PGBGY:         .YBGY~.   .:7PGG7        .. ~GGP. 
+//  YGG7      .5GG~    .^~!!!JGGP!!7:                   :YGBY   ~BGY:..    .7GB5.        :GGG:        7GG5           JGGJ  
+//  :PBG?:  .~5BG?           !GGY       :^:       ..:~7YGBGJ.   .5BG?:   ..^?GBY   :^^.  .YBGY~.    :7PGG7          :PGG~  
+//   :JGBG5YPGG5!            !BB5      !GBB7   .Y5PPGGGPY7^      :JPBGP55PPGGP?.  :GBBJ   .7PGBP5YY5GBG5~           7BB5   
+//     :7Y555J~.             ^J?7      :7J?:   .?J?7!~^.           :~7?J??7!^.    .!J?^     .~7JY5YYJ!^             ~7J~   
+// `
+
+const n_0 = `
      .^7?7!^.     
    .?PGGGGBG5!    
   :PBGJ^::!5BGY.  
@@ -30,7 +85,7 @@ var n_0 = `
    ~5GBPYYPBGY:   
     .~?5PPY?^     
 `
-var n_1 = `
+const n_1 = `
       :7YYY?.     
     .JGBGGGG~     
     .~J?^PGG!     
@@ -43,7 +98,7 @@ var n_1 = `
         .GGG^     
         .???:     
 `
-var n_2 = `
+const n_2 = `
    ^J??7~:        
    !PPGGBGY~      
    ...:^7PBGJ.    
@@ -56,7 +111,7 @@ var n_2 = `
  :GGGGP555555555: 
  .!??JJJJJJJJJJJ: 
 `
-var n_3 = `
+const n_3 = `
     ~5YYJ?!^.     
     ~5Y5PGBG57.   
          .!PGB?   
@@ -69,7 +124,7 @@ var n_3 = `
   !55PGGGG5J~.    
   ~YJ?7!^:.       
 `
-var n_4 = `
+const n_4 = `
    :?!^           
    YBB?  .::.     
   !GG5.  !GGY     
@@ -82,7 +137,7 @@ var n_4 = `
          !BB5     
          ^J?7     
 `
-var n_5 = `
+const n_5 = `
    !!!:.........  
   .PGGPPPPPPPPPP^ 
   .PGGJ7????????: 
@@ -95,7 +150,7 @@ var n_5 = `
   JPGGGGGP5J7^    
   !J?7!~^.        
 `
-var n_6 = `
+const n_6 = `
         .!5Y:     
        ~5GGY^     
      ^YGB5~       
@@ -108,7 +163,7 @@ var n_6 = `
   :JPBGP55PPGGP?. 
     :~7?J??7!^.   
 `
-var n_7 = `
+const n_7 = `
  .??????????7!~.  
  ^GGGPPPPPPPGGGP^ 
  ^GGP:......^PGG! 
@@ -121,7 +176,7 @@ var n_7 = `
       :PBG!       
       ^7J~        
 `
-var n_8 = `
+const n_8 = `
      .~7JYYJ7^    
     ~PGBP55GBGY:  
    :GGG!.  .?GBY  
@@ -134,7 +189,7 @@ var n_8 = `
   .7PGBP5YY5GBG5~ 
     .~7JY5YYJ!^   
 `
-var n_9 = `
+const n_9 = `
     .~7JYYYJ7^.   
    !PGBG555GBG5~  
   !GGP!.   :!GGG~ 
@@ -147,7 +202,7 @@ var n_9 = `
           7BB5    
           ~7J~    
 `
-var colon = `
+const colon = `
        
        
        
@@ -161,7 +216,7 @@ var colon = `
  :7J?: 
 `
 
-// var h_0 = `
+// const h_0 = `
                                                      
                                                      
                                                      
@@ -188,56 +243,56 @@ var colon = `
                                                      
                                                      
 // `
-// var h_1 = ``
-// var h_2 = ``
-// var h_3 = ``
-// var h_4 = ``
-// var h_5 = ``
-// var h_6 = ``
-// var h_7 = ``
-// var h_8 = ``
-// var h_9 = ``
-// var h_10 = ``
-// var h_11 = ``
-// var h_12 = ``
-// var h_13 = ``
-// var h_14 = ``
-// var h_15 = ``
-// var h_16 = ``
-// var h_17 = ``
-// var h_18 = ``
-// var h_19 = ``
-// var h_20 = ``
-// var h_21 = ``
-// var h_22 = ``
-// var h_23 = ``
+// const h_1 = ``
+// const h_2 = ``
+// const h_3 = ``
+// const h_4 = ``
+// const h_5 = ``
+// const h_6 = ``
+// const h_7 = ``
+// const h_8 = ``
+// const h_9 = ``
+// const h_10 = ``
+// const h_11 = ``
+// const h_12 = ``
+// const h_13 = ``
+// const h_14 = ``
+// const h_15 = ``
+// const h_16 = ``
+// const h_17 = ``
+// const h_18 = ``
+// const h_19 = ``
+// const h_20 = ``
+// const h_21 = ``
+// const h_22 = ``
+// const h_23 = ``
 
-// var m_0 = ``
-// var m_1 = ``
-// var m_2 = ``
-// var m_3 = ``
-// var m_4 = ``
-// var m_5 = ``
-// var m_6 = ``
-// var m_7 = ``
-// var m_8 = ``
-// var m_9 = ``
-// var m_10 = ``
-// var m_11 = ``
-// var m_12 = ``
-// var m_13 = ``
-// var m_14 = ``
-// var m_15 = ``
-// var m_16 = ``
-// var m_17 = ``
-// var m_18 = ``
-// var m_19 = ``
-// var m_20 = ``
-// var m_21 = ``
-// var m_22 = ``
-// var m_23 = ``
-// var m_24 = ``
-// var m_25 = `
+// const m_0 = ``
+// const m_1 = ``
+// const m_2 = ``
+// const m_3 = ``
+// const m_4 = ``
+// const m_5 = ``
+// const m_6 = ``
+// const m_7 = ``
+// const m_8 = ``
+// const m_9 = ``
+// const m_10 = ``
+// const m_11 = ``
+// const m_12 = ``
+// const m_13 = ``
+// const m_14 = ``
+// const m_15 = ``
+// const m_16 = ``
+// const m_17 = ``
+// const m_18 = ``
+// const m_19 = ``
+// const m_20 = ``
+// const m_21 = ``
+// const m_22 = ``
+// const m_23 = ``
+// const m_24 = ``
+// const m_25 = `
                                                      
                                                      
                                                      
@@ -264,103 +319,103 @@ var colon = `
                                                      
                                                      
 // `
-// var m_26 = ``
-// var m_27 = ``
-// var m_28 = ``
-// var m_29 = ``
-// var m_30 = ``
-// var m_31 = ``
-// var m_32 = ``
-// var m_33 = ``
-// var m_34 = ``
-// var m_35 = ``
-// var m_36 = ``
-// var m_37 = ``
-// var m_38 = ``
-// var m_39 = ``
-// var m_40 = ``
-// var m_41 = ``
-// var m_42 = ``
-// var m_43 = ``
-// var m_44 = ``
-// var m_45 = ``
-// var m_46 = ``
-// var m_47 = ``
-// var m_48 = ``
-// var m_49 = ``
-// var m_50 = ``
-// var m_51 = ``
-// var m_52 = ``
-// var m_53 = ``
-// var m_54 = ``
-// var m_55 = ``
-// var m_56 = ``
-// var m_57 = ``
-// var m_58 = ``
-// var m_59 = ``
+// const m_26 = ``
+// const m_27 = ``
+// const m_28 = ``
+// const m_29 = ``
+// const m_30 = ``
+// const m_31 = ``
+// const m_32 = ``
+// const m_33 = ``
+// const m_34 = ``
+// const m_35 = ``
+// const m_36 = ``
+// const m_37 = ``
+// const m_38 = ``
+// const m_39 = ``
+// const m_40 = ``
+// const m_41 = ``
+// const m_42 = ``
+// const m_43 = ``
+// const m_44 = ``
+// const m_45 = ``
+// const m_46 = ``
+// const m_47 = ``
+// const m_48 = ``
+// const m_49 = ``
+// const m_50 = ``
+// const m_51 = ``
+// const m_52 = ``
+// const m_53 = ``
+// const m_54 = ``
+// const m_55 = ``
+// const m_56 = ``
+// const m_57 = ``
+// const m_58 = ``
+// const m_59 = ``
 
-// var s_0 = ``
-// var s_1 = ``
-// var s_2 = ``
-// var s_3 = ``
-// var s_4 = ``
-// var s_5 = ``
-// var s_6 = ``
-// var s_7 = ``
-// var s_8 = ``
-// var s_9 = ``
-// var s_10 = ``
-// var s_11 = ``
-// var s_12 = ``
-// var s_13 = ``
-// var s_14 = ``
-// var s_15 = ``
-// var s_16 = ``
-// var s_17 = ``
-// var s_18 = ``
-// var s_19 = ``
-// var s_20 = ``
-// var s_21 = ``
-// var s_22 = ``
-// var s_23 = ``
-// var s_24 = ``
-// var s_25 = ``
-// var s_26 = ``
-// var s_27 = ``
-// var s_28 = ``
-// var s_29 = ``
-// var s_30 = ``
-// var s_31 = ``
-// var s_32 = ``
-// var s_33 = ``
-// var s_34 = ``
-// var s_35 = ``
-// var s_36 = ``
-// var s_37 = ``
-// var s_38 = ``
-// var s_39 = ``
-// var s_40 = ``
-// var s_41 = ``
-// var s_42 = ``
-// var s_43 = ``
-// var s_44 = ``
-// var s_45 = ``
-// var s_46 = ``
-// var s_47 = ``
-// var s_48 = ``
-// var s_49 = ``
-// var s_50 = ``
-// var s_51 = ``
-// var s_52 = ``
-// var s_53 = ``
-// var s_54 = ``
-// var s_55 = ``
-// var s_56 = ``
-// var s_57 = ``
-// var s_58 = ``
-// var s_59 = ``
+// const s_0 = ``
+// const s_1 = ``
+// const s_2 = ``
+// const s_3 = ``
+// const s_4 = ``
+// const s_5 = ``
+// const s_6 = ``
+// const s_7 = ``
+// const s_8 = ``
+// const s_9 = ``
+// const s_10 = ``
+// const s_11 = ``
+// const s_12 = ``
+// const s_13 = ``
+// const s_14 = ``
+// const s_15 = ``
+// const s_16 = ``
+// const s_17 = ``
+// const s_18 = ``
+// const s_19 = ``
+// const s_20 = ``
+// const s_21 = ``
+// const s_22 = ``
+// const s_23 = ``
+// const s_24 = ``
+// const s_25 = ``
+// const s_26 = ``
+// const s_27 = ``
+// const s_28 = ``
+// const s_29 = ``
+// const s_30 = ``
+// const s_31 = ``
+// const s_32 = ``
+// const s_33 = ``
+// const s_34 = ``
+// const s_35 = ``
+// const s_36 = ``
+// const s_37 = ``
+// const s_38 = ``
+// const s_39 = ``
+// const s_40 = ``
+// const s_41 = ``
+// const s_42 = ``
+// const s_43 = ``
+// const s_44 = ``
+// const s_45 = ``
+// const s_46 = ``
+// const s_47 = ``
+// const s_48 = ``
+// const s_49 = ``
+// const s_50 = ``
+// const s_51 = ``
+// const s_52 = ``
+// const s_53 = ``
+// const s_54 = ``
+// const s_55 = ``
+// const s_56 = ``
+// const s_57 = ``
+// const s_58 = ``
+// const s_59 = ``
 
-// var circle = `
+// const circle = `
 //                     ..::^^^^^:::..                   
 //                .^~~~~~^^:::::^^^~~~~^:.              
 //            .^~!~^..                .:^~!~:           

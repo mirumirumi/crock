@@ -13,10 +13,12 @@ import (
 
 const (
 	MIN_WIDTH = 120
+	MIN_HEIGHT = 15
 )
 
 func Render(t terminal.Terminal, c color.Color, now time.Time) {
-	crock := generate(now)
+	char := char{now.Format("15:04:05")}
+	crock := char.generate()
 
 	crock = centering(crock, t)
 
@@ -36,31 +38,19 @@ func Render(t terminal.Terminal, c color.Color, now time.Time) {
 	}
 }
 
-func generate(now time.Time) string {
-	// formatted := now.Format("150405")
-	// hour_1 := formatted[0:1]
-	// hour_2 := formatted[1:2]
-	// min_1 := formatted[2:3]
-	// min_2 := formatted[3:4]
-	// sec_1 := formatted[4:5]
-	// sec_2 := formatted[5:6]
-
-
-
-
-
-
-	return sample
-}
-
 func centering(crock string, t terminal.Terminal) string {
 	lines := strings.Split(crock, "\n")
-	numSpaces := (t.Width - MIN_WIDTH) / 2
+	numSpaceX := (t.Width - MIN_WIDTH) / 2 / 2 // 2nd `/2` is fine-tuning
 
 	centered := []string{}
 	for _, line := range lines {
-		centered = append(centered, strings.Repeat(" ", numSpaces) + line + strings.Repeat(" ", numSpaces))
+		addedSpaces := strings.Repeat(" ", numSpaceX) + line
+		centered = append(centered, addedSpaces)
 	}
+	xCenterd := strings.Join(centered, "\n")
 
-	return strings.Join(centered, "\n")
+	numSpaceY := (t.Height - MIN_HEIGHT) / 2 - 1
+	yCenterd := strings.Repeat("\n", numSpaceY) + xCenterd + strings.Repeat("\n", numSpaceY)
+
+	return yCenterd
 }

@@ -6,13 +6,8 @@ import (
 	"runtime/debug"
 
 	"crock/color"
-	"crock/render"
+	r "crock/render"
 	"crock/terminal"
-)
-
-const (
-	MIN_TERM_WIDTH  = render.MIN_WIDTH
-	MIN_TERM_HEIGHT = 15
 )
 
 var version = ""
@@ -32,7 +27,7 @@ func main() {
 	var t terminal.Terminal
 	t.New()
 
-	if t.Width < MIN_TERM_WIDTH || t.Height < MIN_TERM_HEIGHT {
+	if t.Width < r.MIN_WIDTH || t.Height < r.MIN_HEIGHT {
 		needSize(t.Width, t.Height)
 	}
 
@@ -73,7 +68,7 @@ func parseArgs(args []string) (color.Color, error) {
 }
 
 func needSize(x int, y int) {
-	fmt.Println("\x1b[33mWoops!\x1b[0m crock needs a minimum size of", MIN_TERM_WIDTH, "(columns) x", MIN_TERM_HEIGHT, "(lines), please retry again.")
+	fmt.Println("\x1b[33mWoops!\x1b[0m crock needs a minimum size of", r.MIN_WIDTH, "(columns) x", r.MIN_HEIGHT, "(lines), please retry again.")
 	fmt.Println("\nyour terminal size is:")
 	fmt.Println(" x:", x)
 	fmt.Println(" y:", y)

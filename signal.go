@@ -15,7 +15,7 @@ func handleSignal(t terminal.Terminal) {
 
 	<-quit
 
-	cursor.Move(-(t.Width + LEN_STRFTIME), 0)
+	cursor.Move(-(t.Width + LEN_STRFDATE), 0)
 	cursor.Down(1)
 	cursor.Show()
 	os.Exit(0)
