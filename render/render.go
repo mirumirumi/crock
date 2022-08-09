@@ -12,37 +12,11 @@ import (
 )
 
 const (
-	CIRCLE_WIDTH = 52
+	MIN_WIDTH = 120
 )
 
 func Render(t terminal.Terminal, c color.Color, now time.Time) {
-	crock := circle
-
-
-
-
-	lines := strings.Split(crock, "\n")
-
-	for _, line := range lines {
-		for i, _ := range line {
-			if line[i] != (" ") {
-				;
-			} else if h_0[i] != " " {
-				
-			} else if m_25[i] != " " {
-
-			}
-
-
-		}
-	}
-
-
-
-
-
-
-
+	crock := generate(now)
 
 	crock = centering(crock, t)
 
@@ -62,13 +36,30 @@ func Render(t terminal.Terminal, c color.Color, now time.Time) {
 	}
 }
 
+func generate(now time.Time) string {
+	// formatted := now.Format("150405")
+	// hour_1 := formatted[0:1]
+	// hour_2 := formatted[1:2]
+	// min_1 := formatted[2:3]
+	// min_2 := formatted[3:4]
+	// sec_1 := formatted[4:5]
+	// sec_2 := formatted[5:6]
+
+
+
+
+
+
+	return sample
+}
+
 func centering(crock string, t terminal.Terminal) string {
 	lines := strings.Split(crock, "\n")
-	numSpaces := (t.Width - CIRCLE_WIDTH) / 2
+	numSpaces := (t.Width - MIN_WIDTH) / 2
 
 	centered := []string{}
 	for _, line := range lines {
-		centered = append(centered, strings.Repeat(" ", numSpaces - 2) + line + strings.Repeat(" ", numSpaces))  // 2: fine-tuning for the senses
+		centered = append(centered, strings.Repeat(" ", numSpaces) + line + strings.Repeat(" ", numSpaces))
 	}
 
 	return strings.Join(centered, "\n")

@@ -14,7 +14,7 @@ import (
 
 const (
 	INTERVAL     = 950 * time.Millisecond
-	LEN_STRFTIME = 19
+	LEN_STRFTIME = 10
 )
 
 func crock(t terminal.Terminal, c color.Color) {
@@ -25,7 +25,7 @@ func crock(t terminal.Terminal, c color.Color) {
 
 	for {
 		var now = time.Now()
-		var digital string = now.Format("2006/01/02 15:04:05")
+		var digital string = now.Format("01/02, 2006")
 
 		if previous == digital {
 			continue
