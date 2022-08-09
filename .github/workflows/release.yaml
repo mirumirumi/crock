@@ -6,7 +6,7 @@ on:
       - release/prd
 
 jobs:
-  deploy:
+  release:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -23,7 +23,7 @@ jobs:
           mkdir ./mac
           mkdir ./windows
           GOOS=linux GOARCH=amd64 go build -o ./linux/crock -ldflags "-s -w -X main.version=${{ env.version }}"
-          GOOS=darwin GOARCH=amd64 go build -o ./mac/crock -ldflags "-s -w -X main.version=${{ env.version }}"
+          GOOS=darwin GOARCH=amd64 go build -o ./mac/crock_darwin -ldflags "-s -w -X main.version=${{ env.version }}"
           GOOS=windows GOARCH=amd64 go build -o ./windows/crock.exe -ldflags "-s -w -X main.version=${{ env.version }}"
 
       - name: Creating a Tag...
@@ -34,6 +34,6 @@ jobs:
       - name: Creating a Release...
         uses: ncipollo/release-action@v1
         with:
-          artifacts: ./linux/crock, ./mac/crock, ./windows/crock.exe
+          artifacts: ./linux/crock, ./mac/crock_darwin, ./windows/crock.exe
           tag: "${{ env.version }}"
           token: ${{ secrets.PAT }}
