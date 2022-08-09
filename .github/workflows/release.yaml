@@ -19,7 +19,12 @@ jobs:
 
       - name: Building...
         run: |
-          go build -ldflags "-s -w -X main.version=${{ env.version }}"
+          mkdir ./linux
+          mkdir ./mac
+          mkdir ./windows
+          GOOS=linux GOARCH=amd64 go build -o ./linux/crock -ldflags "-s -w -X main.version=${{ env.version }}"
+          GOOS=darwin GOARCH=amd64 go build -o ./mac/crock -ldflags "-s -w -X main.version=${{ env.version }}"
+          GOOS=windows GOARCH=amd64 go build -o ./windows/crock.exe -ldflags "-s -w -X main.version=${{ env.version }}"
 
       - name: Creating a Tag...
         uses: rickstaa/action-create-tag@v1
@@ -29,6 +34,6 @@ jobs:
       - name: Creating a Release...
         uses: ncipollo/release-action@v1
         with:
-          artifacts: ./crock
+          artifacts: ./linux/crock, ./mac/crock, ./windows/crock.exe
           tag: "${{ env.version }}"
           token: ${{ secrets.PAT }}

@@ -1,6 +1,6 @@
 # crock - Rock CLI Clock 🪨
 
-<img src="https://img.shields.io/github/go-mod/go-version/mirumirumi/crock"> <img src="https://img.shields.io/github/v/release/mirumirumi/crock"> <img src="https://img.shields.io/github/workflow/status/mirumirumi/crock/release"> <img src="https://img.shields.io/github/checks-status/mirumirumi/crock/main"> <img src="https://img.shields.io/homebrew/installs/dy/crock?label=brew%20downloads"> <img src="https://img.shields.io/chocolatey/dt/crock?label=chocolatey%20downloads">
+<img src="https://img.shields.io/github/go-mod/go-version/mirumirumi/crock"> <img src="https://img.shields.io/github/v/release/mirumirumi/crock"> <img src="https://img.shields.io/github/workflow/status/mirumirumi/crock/release"> <img src="https://img.shields.io/homebrew/installs/dy/crock?label=brew%20downloads"> <img src="https://img.shields.io/chocolatey/dt/crock?label=chocolatey%20downloads">
 
 ![crock](/assets/main-visual.png)
 
