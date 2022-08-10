@@ -25,9 +25,12 @@ jobs:
           GOOS=linux GOARCH=amd64 go build -o ./linux/crock -ldflags "-s -w -X main.version=${{ env.version }}"
           GOOS=darwin GOARCH=amd64 go build -o ./mac/crock_darwin -ldflags "-s -w -X main.version=${{ env.version }}"
           GOOS=windows GOARCH=amd64 go build -o ./windows/crock.exe -ldflags "-s -w -X main.version=${{ env.version }}"
-          sha256_linux=$(sha256sum ./linux/crock):0:64
-          sha256_mac=$(sha256sum ./mac/crock_darwin):0:64
-          sha256_windows=$(sha256sum ./windows/crock.exe):0:64
+          sha256_linux=$(sha256sum ./linux/crock)
+          sha256_mac=$(sha256sum ./mac/crock_darwin)
+          sha256_windows=$(sha256sum ./windows/crock.exe)
+          sha256_linux=${sha256_linux:0:64}
+          sha256_mac=${sha256_mac:0:64}
+          sha256_windows=${sha256_windows:0:64}
           echo "sha256_linux=${sha256_linux}" >> $GITHUB_ENV
           echo "sha256_mac=${sha256_mac}" >> $GITHUB_ENV
           echo "sha256_windows=${sha256_windows}" >> $GITHUB_ENV
