@@ -25,16 +25,16 @@ jobs:
           GOOS=linux GOARCH=amd64 go build -o ./linux/crock -ldflags "-s -w -X main.version=${{ env.version }}"
           GOOS=darwin GOARCH=amd64 go build -o ./mac/crock_darwin -ldflags "-s -w -X main.version=${{ env.version }}"
           GOOS=windows GOARCH=amd64 go build -o ./windows/crock.exe -ldflags "-s -w -X main.version=${{ env.version }}"
-          sha256_linux=$(shasum -a 256 ./linux/crock)
-          sha256_mac=$(shasum -a 256 ./mac/crock_darwin)
-          sha256_windows=$(shasum -a 256 ./windows/crock.exe)
+          sha256_linux=$(sha256sum ./linux/crock):0:64
+          sha256_mac=$(sha256sum ./mac/crock_darwin):0:64
+          sha256_windows=$(sha256sum ./windows/crock.exe):0:64
           echo "sha256_linux=${sha256_linux}" >> $GITHUB_ENV
           echo "sha256_mac=${sha256_mac}" >> $GITHUB_ENV
           echo "sha256_windows=${sha256_windows}" >> $GITHUB_ENV
 
       - name: Requesting to workflow of homebrew-crock...
         run: |
-          curl -X POST -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${{ secrets.PAT }}" -d '{"ref": "main"}' -d '{"version": "${{ env.version }}"}' -d '{"sha256": "${{ env.sha256_mac }}"}' https://api.github.com/repos/mirumirumi/homebrew-crock/actions/workflows/release.yaml/dispatches
+          curl -X POST -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${{ secrets.PAT }}" -d '{"ref": "main", "inputs": {"version": "${{ env.version }}", "sha256": "${{ env.sha256_mac }}"}}' https://api.github.com/repos/mirumirumi/homebrew-crock/actions/workflows/release.yaml/dispatches
 
       - name: Creating a Tag...
         uses: rickstaa/action-create-tag@v1
