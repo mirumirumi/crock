@@ -33,6 +33,7 @@ yum install crock
 Mac:
 
 ```bash
+brew tap mirumirumi/crock
 brew install crock
 ```
 
