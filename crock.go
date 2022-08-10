@@ -33,7 +33,7 @@ func crock(t terminal.Terminal, c color.Color) {
 			continue
 		}
 
-		title := "crock🪨 is crocking:"
+		title := "crock is crocking:"
 		first := title + strings.Repeat(" ", t.Width - len(title) - LEN_STRFDATE) + digital
 
 		tm.MoveCursor(0, 0)
