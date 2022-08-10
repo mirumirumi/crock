@@ -34,7 +34,7 @@ jobs:
 
       - name: Requesting to workflow of homebrew-crock...
         run: |
-          curl -X POST -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${{ secrets.PAT }}" -d '{"ref": "main"}' -d '{"version": ${{ env.version }}}' -d '{"sha256": ${{ env.sha256_mac }}}' https://api.github.com/repos/mirumirumi/homebrew-crock/actions/workflows/release.yaml/dispatches
+          curl -X POST -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${{ secrets.PAT }}" -d '{"ref": "main"}' -d '{"version": "${{ env.version }}"}' -d '{"sha256": "${{ env.sha256_mac }}"}' https://api.github.com/repos/mirumirumi/homebrew-crock/actions/workflows/release.yaml/dispatches
 
       - name: Creating a Tag...
         uses: rickstaa/action-create-tag@v1
