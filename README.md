@@ -1,6 +1,6 @@
 # crock - Rock CLI Clock 🪨
 
-<img src="https://img.shields.io/github/go-mod/go-version/mirumirumi/crock"> <img src="https://img.shields.io/github/v/release/mirumirumi/crock"> <img src="https://img.shields.io/github/workflow/status/mirumirumi/crock/release"> <img src="https://img.shields.io/homebrew/installs/dy/crock?label=brew%20downloads"> <img src="https://img.shields.io/chocolatey/dt/crock?label=chocolatey%20downloads">
+<img src="https://img.shields.io/github/go-mod/go-version/mirumirumi/crock"> <img src="https://img.shields.io/github/v/release/mirumirumi/crock"> <img src="https://img.shields.io/github/workflow/status/mirumirumi/crock/release">
 
 ![crock](/assets/main-visual.png)
 
@@ -25,17 +25,18 @@ brew tap mirumirumi/crock
 brew install crock
 ```
 
-Windows:
-
-```powershell
-choco install crock
-```
-
 Linux:
 
 ```bash
-wget https://github.com/mirumirumi/crock/blob/main/crock.sh -P /tmp/
+wget https://raw.githubusercontent.com/mirumirumi/crock/main/crock.sh -P /tmp/
 sh /tmp/crock.sh
+```
+
+Windows:
+
+```powershell
+Invoke-WebRequest https://github.com/mirumirumi/crock/releases/latest/download/crock.exe -OutFile $env:temp\crock.exe  # it would be `C:\Users\[user]\AppData\Local\Temp`
+# Move it anywhere you want!
 ```
 
 then,
@@ -48,15 +49,8 @@ start crocking!
 
 ## Contribute
 
-PRs are so welcome!
+PRs are so welcome!  
 (Since the author is new to Golang, so there will be lots of room for improvement in the code.)
-
-<details>
-<summary>Branches:</summary>
-
-- main branch for release: `release/prd`
-- daily commit: `main`
-</details>
 
 ## Credit and Special Thanks
 
