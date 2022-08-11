@@ -1,0 +1,60 @@
+#!/bin/sh
+#
+# crock
+#
+# chkconfig: - 95 5
+# description: crock is rock clock
+
+. /etc/rc.d/init.d/functions
+
+name="crock"
+exec="/usr/local/bin/${name}"
+
+pidfile="/var/run/${name}.pid"
+lockfile="/var/lock/subsys/${name}"
+logfile="/var/log/${name}.log"
+
+start() {
+    [ -x $exec ] || exit 5
+    echo -n $"Starting $name: "
+    $exec --pidfile $pidfile >>$logfile 2>&1 &
+    touch $lockfile
+    success
+    echo
+    return 0
+}
+
+stop() {
+    echo -n $"Stopping $name: "
+    killproc -p $pidfile -QUIT
+    retval=$?
+    echo
+    [ $retval -eq 0 ] && rm -f $lockfile
+    return $retval
+}
+
+rh_status() {
+    status -p $pidfile $name
+}
+
+case $1 in
+    start)
+        $1
+        ;;
+    stop)
+        $1
+        ;;
+    status)
+        rh_status
+        ;;
+    restart)
+        stop
+        start
+        ;;
+    *)
+        echo "Usage: ${0} [start|stop|status|restart]"
+        exit 2
+        ;;
+esac
+
+exit $?

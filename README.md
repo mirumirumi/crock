@@ -18,18 +18,6 @@ Then crock is perfect for you!
 
 ## Usage
 
-Debian:
-
-```bash
-apt install crock
-```
-
-Red Hat:
-
-```bash
-yum install crock
-```
-
 Mac:
 
 ```bash
@@ -41,6 +29,13 @@ Windows:
 
 ```powershell
 choco install crock
+```
+
+Linux:
+
+```bash
+wget https://github.com/mirumirumi/crock/blob/main/crock.sh -P /tmp/
+sh /tmp/crock.sh
 ```
 
 then,
